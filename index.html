@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Clock</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="clock" class="clock-shadow-inner-outer">
+            <div id="clock-face">
+                <div class="hand hour tick-transition"></div>
+                <div class="hand minute tick-transition"></div>
+                <div class="hand second tick-transition"></div>
+            </div>
+        </div>
+        <div id="clouds">
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+        </div>
+        <script>
+            const clock = document.getElementById("clock");
+            //    const clockFace = document.getElementById("clock-face");
+            const hourHand = document.querySelector("#clock-face .hand.hour");
+            const minuteHand = document.querySelector(
+                "#clock-face .hand.minute"
+            );
+            const secondHand = document.querySelector(
+                "#clock-face .hand.second"
+            );
+            // Build clock tick marks
+            for (let minute = 0; minute < 30; minute++) {
+                if (minute % 5 === 0) {
+                    // Hours
+                    const hour = minute / 5;
+                    const ticksDiv = document.createElement("div");
+                    ticksDiv.classList.add("hour-ticks");
+                    ticksDiv.style.transform = `rotate(${
+                        (360 / 12) * hour
+                    }deg)`;
+                    clock.append(ticksDiv);
+                } else {
+                    // Minutes / seconds
+                    const minTicksDiv = document.createElement("div");
+                    minTicksDiv.classList.add("minute-ticks");
+                    minTicksDiv.style.transform = `rotate(${
+                        (360 / 60) * minute
+                    }deg)`;
+                    clock.append(minTicksDiv);
+                }
+            }
+            // SHow Time
+            const getDate = () => {
+                const now = new Date();
+                // Seconds
+                const seconds = now.getSeconds();
+                let pct = seconds / 60;
+                positionHand(secondHand, pct);
+                // Minutes
+                const minutes = now.getMinutes();
+                pct = minutes / 60 + pct / 60;
+                positionHand(minuteHand, pct);
+                // Hours
+                const hours = now.getHours();
+                pct = hours / 12 + pct / 12;
+                positionHand(hourHand, pct);
+            };
+            const positionHand = (hand, pct) => {
+                let degrees = 360 * pct;
+                if (degrees === 0) {
+                    hand.classList.remove("tick-transition");
+                    hand.style.transform = `rotate(-6deg)`;
+                    setTimeout(() => {
+                        hand.classList.add("tick-transition");
+                        hand.style.transform = `rotate(${degrees}deg)`;
+                    }, 10);
+                } else {
+                    hand.style.transform = `rotate(${degrees}deg)`;
+                }
+            };
+            setInterval(getDate, 1000);
+        </script>
+    </body>
+</html>
