@@ -43,8 +43,11 @@ div {
     border: calc(10px + 2vmin) solid white;
     border-radius: 50%;
     padding: 5vmin;
-    width: 50vmin;
-    height: 50vmin;
+    --maxwh: calc(120px + 50vmin);
+    width: var(--maxwh);
+    height: var(--maxwh);
+    max-width: 50rem;
+    max-height: 50rem;
     position: relative;
 }
 .clock-shadow-inner-outer {
