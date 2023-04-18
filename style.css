@@ -57,8 +57,9 @@ div {
     height: 100%;
     width: 100%;
     position: relative;
-    transform: translateY(-9%); /* account for the transform-origin of the clock hands */
+    /* transform: translateY(-9%); account for the transform-origin of the clock hands */
     filter: drop-shadow(0 1.75vmin 1.1vmin rgba(0, 26, 91, 0.4));
+    /* border: 1px solid red; */
 }
 .hand {
     width: 4%;
@@ -67,9 +68,9 @@ div {
     background: white;
     left: 50%;
     margin-left: -2%;
-    margin-bottom: -10%;
+    /* margin-bottom: -10%; */
     bottom: 50%;
-    transform-origin: 50% 98%;
+    transform-origin: 50% 100%;
     transform: rotate(90deg);
     border-radius: 50% 50% 0 0;
     box-shadow: 0 -2px 5px -2px rgba(0,0,0,0.25);
@@ -77,8 +78,10 @@ div {
     border-bottom-color: transparent; */
 }
 .tick-transition {
-    transition: all 0.5s;
-    transition-timing-function: cubic-bezier(0, 1.5, 0.5, 1);
+    /* transition: all 0.5s;
+    transition-timing-function: cubic-bezier(0, 1.5, 0.5, 1); */
+    transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
+    
 }
 .hand.hour {
     height: 40%;
@@ -89,6 +92,17 @@ div {
     width: 2%;
     margin-left: -1%;
     height: 55%;
+}
+.hub {
+    position: absolute;
+    width: 3%;
+    height: 3%;
+    margin-left: -1.5%;
+    margin-bottom: -1.5%;
+    left: 50%;
+    bottom: 50%;
+    border-radius: 50%;
+    background-color: white;
 }
 .hour-ticks {
     position: absolute;
@@ -102,11 +116,14 @@ div {
 }
 .minute-ticks {
     position: absolute;
-    left: calc(50% - (2px + 0.5vmin)/2);
+    left: calc(50% - (1px + 0.25vmin) /2);
+    transform: translateX(-4px);
+    width: calc(1px + 0.25vmin);
+
     top: 2.5%;
     height: 95%;
     box-sizing: border-box;
-    width: calc(1px + 0.25vmin);
+    /* border: 1px solid black; */
     border-top: 1vmin solid white;
     border-bottom: 1vmin solid white;
     mix-blend-mode: overlay;

@@ -10,9 +10,10 @@
     <body>
         <div id="clock" class="clock-shadow-inner-outer">
             <div id="clock-face">
-                <div class="hand hour tick-transition"></div>
-                <div class="hand minute tick-transition"></div>
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
                 <div class="hand second tick-transition"></div>
+                <div class="hub"></div>
             </div>
         </div>
         <div id="clouds">
@@ -58,6 +59,8 @@
                     clock.append(minTicksDiv);
                 }
             }
+            const hands = document.querySelectorAll(".hand");
+
             // SHow Time
             const getDate = () => {
                 const now = new Date();
@@ -76,18 +79,49 @@
             };
             const positionHand = (hand, pct) => {
                 let degrees = 360 * pct;
-                if (degrees === 0) {
+                if (degrees === 0 && hand === secondHand) {
                     hand.classList.remove("tick-transition");
                     hand.style.transform = `rotate(-6deg)`;
+                    // console.log("secs", secs);
                     setTimeout(() => {
                         hand.classList.add("tick-transition");
                         hand.style.transform = `rotate(${degrees}deg)`;
-                    }, 10);
+                    }, 100);
                 } else {
                     hand.style.transform = `rotate(${degrees}deg)`;
                 }
             };
             setInterval(getDate, 1000);
+            // let secs = 55,
+            //     minutes = (hours = 0);
+            // const getPretendDate = () => {
+            //     secs++;
+            //     secs = secs % 60;
+            //     // console.log(secs);
+            //     let pct = secs / 60;
+            //     positionHand(secondHand, pct);
+            //     if (secs === 0) {
+            //         minutes++;
+            //     }
+            //     minutes = minutes % 60;
+            //     console.log("minutes", minutes);
+            //     pct = minutes / 60 + pct / 60;
+            //     positionHand(minuteHand, pct);
+            //     if (minutes === 0) {
+            //         hours++;
+            //     }
+            //     hours = hours % 12;
+            //     console.log("hours", hours);
+            //     pct = hours / 12 + pct / 12;
+            //     positionHand(hourHand, pct);
+            // };
+            // setInterval(getPretendDate, 1000);
+            // window.addEventListener("keydown", (event) => {
+            //     if (event.code === "KeyS") {
+            //         console.log("S");
+            //         secs = 57;
+            //     }
+            // });
         </script>
     </body>
 </html>
